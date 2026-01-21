@@ -1,0 +1,8 @@
+{
+  "appId": "com.kantan.bunsho",
+  "appName": "かんたん文書作成",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
