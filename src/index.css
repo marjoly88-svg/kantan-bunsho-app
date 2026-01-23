@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* バナー広告用の余白を確保 */
+.app-container {
+  min-height: 100%;
+  padding-bottom: env(safe-area-inset-bottom, 50px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 50px);
+}
