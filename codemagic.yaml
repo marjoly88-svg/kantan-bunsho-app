@@ -3,6 +3,8 @@ workflows:
     name: iOS App
     max_build_duration: 60
     environment:
+      groups:
+        - apple
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.kantan.bunsho
