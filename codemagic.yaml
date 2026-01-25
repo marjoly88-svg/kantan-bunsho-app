@@ -8,6 +8,9 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.kantan.bunsho
+        certificate: KantanBunsho
+        provisioning_profiles:
+          - KantanBunsho_AppStore
       vars:
         XCODE_WORKSPACE: "ios/App/App.xcworkspace"
         XCODE_SCHEME: "App"
@@ -37,6 +40,11 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios/App && pod install
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          keychain add-certificates
+          xcode-project use-profiles
       - name: Build iOS app
         script: |
           xcode-project build-ipa \
