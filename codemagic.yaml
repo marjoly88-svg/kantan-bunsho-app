@@ -6,7 +6,6 @@ workflows:
       groups:
         - apple
       ios_signing:
-        certificate: KantanBunsho
         provisioning_profiles:
           - KantanBunsho_AppStore
       vars:
