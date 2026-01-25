@@ -5,6 +5,9 @@
   "server": {
     "androidScheme": "https"
   },
+  "ios": {
+    "minVersion": "14.0"
+  },
   "plugins": {
     "AdMob": {
       "appId": "ca-app-pub-2188494471896935~7089195405"
