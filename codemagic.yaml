@@ -24,7 +24,10 @@ workflows:
       - name: Add iOS platform
         script: |
           npx cap add ios || true
-          npx cap sync ios
+          # cap sync runs pod install internally which may fail due to
+          # platform version mismatch - allow failure here, we fix and
+          # re-run pod install in a later step
+          npx cap sync ios || true
       - name: Configure AdMob for iOS
         script: |
           # Add GADApplicationIdentifier to Info.plist for AdMob
