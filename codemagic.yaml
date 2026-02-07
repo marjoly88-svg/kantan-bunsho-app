@@ -34,14 +34,25 @@ workflows:
           /usr/libexec/PlistBuddy -c "Add :SKAdNetworkItems array" ios/App/App/Info.plist || true
           /usr/libexec/PlistBuddy -c "Add :SKAdNetworkItems:0 dict" ios/App/App/Info.plist || true
           /usr/libexec/PlistBuddy -c "Add :SKAdNetworkItems:0:SKAdNetworkIdentifier string cstr6suwn9.skadnetwork" ios/App/App/Info.plist || true
+      - name: Patch AdMob plugin for Google Mobile Ads SDK 11 compatibility
+        script: |
+          # Fix UMPConsentStatus renamed to ConsentStatus in Google Mobile Ads SDK 11+
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPConsentStatus/ConsentStatus/g' {} +
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPConsentInformation/ConsentInformation/g' {} +
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPRequestParameters/RequestParameters/g' {} +
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPDebugSettings/DebugSettings/g' {} +
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPDebugGeography/DebugGeography/g' {} +
+          find node_modules/@capacitor-community/admob/ios -name '*.swift' -exec \
+            sed -i '' 's/UMPConsentForm/ConsentForm/g' {} +
       - name: Install CocoaPods dependencies
         script: |
           # Pin iOS platform to 14.0 for AdMob compatibility
           sed -i '' "s/platform :ios, '.*'/platform :ios, '14.0'/" ios/App/Podfile
-          # Pin Google-Mobile-Ads-SDK to < 11.0 to avoid UMPConsentStatus rename
-          sed -i '' "/^target 'App' do/a\\
-            pod 'Google-Mobile-Ads-SDK', '< 11.0'
-          " ios/App/Podfile
           cd ios/App && pod install
       - name: Set up code signing
         script: |
