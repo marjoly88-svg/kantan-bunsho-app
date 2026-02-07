@@ -36,6 +36,8 @@ workflows:
           /usr/libexec/PlistBuddy -c "Add :SKAdNetworkItems:0:SKAdNetworkIdentifier string cstr6suwn9.skadnetwork" ios/App/App/Info.plist || true
       - name: Install CocoaPods dependencies
         script: |
+          # Override iOS platform version in Podfile to 14.0 for CapacitorCommunityAdmob compatibility
+          sed -i "s/platform :ios, '.*'/platform :ios, '14.0'/" ios/App/Podfile
           cd ios/App && pod install
       - name: Set up code signing
         script: |
