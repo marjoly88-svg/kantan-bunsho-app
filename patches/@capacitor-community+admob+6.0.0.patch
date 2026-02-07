@@ -1,0 +1,21 @@
+diff --git a/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift b/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
+--- a/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
++++ b/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
+@@ -25,7 +25,7 @@ class ConsentExecutor: NSObject {
+                 } else {
+                     call.resolve([
+                         "status": self.getConsentStatusString(UMPConsentInformation.sharedInstance.consentStatus),
+-                        "isConsentFormAvailable": UMPConsentInformation.sharedInstance.formStatus == UMPFormStatus.available
++                        "isConsentFormAvailable": UMPConsentInformation.sharedInstance.formStatus == FormStatus.available
+                     ])
+                 }
+             })
+@@ -35,7 +35,7 @@ class ConsentExecutor: NSObject {
+         if let rootViewController = plugin?.getRootVC() {
+             let formStatus = UMPConsentInformation.sharedInstance.formStatus
+ 
+-            if formStatus == UMPFormStatus.available {
++            if formStatus == FormStatus.available {
+                 UMPConsentForm.load(completionHandler: {form, loadError in
+                     if loadError != nil {
+                         call.reject(loadError?.localizedDescription ?? "Load consent form error")
