@@ -16,7 +16,7 @@
     "@capacitor/ios": "^5.0.0",
     "@capacitor/filesystem": "^5.0.0",
     "@capacitor/share": "^5.0.0",
-    "@capacitor-community/admob": "^6.0.0"
+    "@capacitor-community/admob": "^5.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
