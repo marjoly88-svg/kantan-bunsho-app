@@ -6,7 +6,7 @@
     "androidScheme": "https"
   },
   "ios": {
-    "minVersion": "14.0"
+    "minVersion": "13.0"
   },
   "plugins": {
     "AdMob": {
