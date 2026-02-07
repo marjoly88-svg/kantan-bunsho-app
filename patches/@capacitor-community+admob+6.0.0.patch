@@ -1,0 +1,65 @@
+diff --git a/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift b/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
+--- a/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
++++ b/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift
+@@ -19,7 +19,7 @@ class ConsentExecutor: NSObject {
+         parameters.tagForUnderAgeOfConsent = tagForUnderAgeOfConsent
+ 
+         // Request an update to the consent information.
+-        UMPConsentInformation.sharedInstance.requestConsentInfoUpdate(
++        UMPConsentInformation.shared.requestConsentInfoUpdate(
+             with: parameters,
+             completionHandler: { error in
+                 if error != nil {
+@@ -26,8 +26,8 @@ class ConsentExecutor: NSObject {
+                 } else {
+                     call.resolve([
+                         "status": self.getConsentStatusString(UMPConsentInformation.shared.consentStatus),
+-                        "isConsentFormAvailable": UMPConsentInformation.sharedInstance.formStatus == UMPFormStatus.available
++                        "isConsentFormAvailable": UMPConsentInformation.shared.formStatus == FormStatus.available
+                     ])
+                 }
+             })
+@@ -35,9 +35,9 @@ class ConsentExecutor: NSObject {
+ 
+     func showConsentForm(_ call: CAPPluginCall) {
+         if let rootViewController = plugin?.getRootVC() {
+-            let formStatus = UMPConsentInformation.sharedInstance.formStatus
++            let formStatus = UMPConsentInformation.shared.formStatus
+ 
+-            if formStatus == UMPFormStatus.available {
++            if formStatus == FormStatus.available {
+                 UMPConsentForm.load(completionHandler: {form, loadError in
+                     if loadError != nil {
+                         call.reject(loadError?.localizedDescription ?? "Load consent form error")
+@@ -46,7 +46,7 @@ class ConsentExecutor: NSObject {
+                         return
+                     }
+ 
+-                    if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.required {
++                    if UMPConsentInformation.shared.consentStatus == UMPConsentStatus.required {
+                         form?.present(from: rootViewController, completionHandler: { dismissError in
+                             if dismissError != nil {
+                                 call.reject(dismissError?.localizedDescription ?? "Consent dismiss error")
+@@ -56,12 +56,12 @@ class ConsentExecutor: NSObject {
+                             }
+ 
+                             call.resolve([
+-                                "status": self.getConsentStatusString(UMPConsentInformation.sharedInstance.consentStatus)
++                                "status": self.getConsentStatusString(UMPConsentInformation.shared.consentStatus)
+                             ])
+                         })
+                     } else {
+                         call.resolve([
+-                            "status": self.getConsentStatusString(UMPConsentInformation.sharedInstance.consentStatus)
++                            "status": self.getConsentStatusString(UMPConsentInformation.shared.consentStatus)
+                         ])
+                     }
+                 })
+@@ -76,7 +76,7 @@ class ConsentExecutor: NSObject {
+     }
+ 
+     func resetConsentInfo(_ call: CAPPluginCall) {
+-        UMPConsentInformation.sharedInstance.reset()
++        UMPConsentInformation.shared.reset()
+         call.resolve()
+     }
