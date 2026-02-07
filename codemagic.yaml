@@ -47,6 +47,8 @@ workflows:
             -e 's/UMPConsentForm/ConsentForm/g' \
             -e 's/UMPFormStatus/FormStatus/g' \
             -e 's/\.sharedInstance\./.shared./g' \
+            -e 's/parameters\.tagForUnderAgeOfConsent/parameters.isTaggedForUnderAgeOfConsent/g' \
+            -e 's/ConsentForm\.load(completionHandler:/ConsentForm.load(with:/g' \
             {} +
       - name: Install CocoaPods dependencies
         script: |
